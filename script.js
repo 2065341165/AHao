@@ -189,7 +189,7 @@ function initArticlePage() {
 document.addEventListener('DOMContentLoaded', () => {
   if (window.location.pathname.includes('article.html')) {
     initArticlePage();
-  } else if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
+  } else if (window.location.pathname.includes('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/')) {
     initHomePage();
   }
 });
