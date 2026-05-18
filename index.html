@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人博客 - 首页</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <div class="container">
+        <a href="index.html" class="logo">My Blog</a>
+        <ul class="nav-links">
+          <li><a href="index.html" class="active">首页</a></li>
+          <li><a href="about.html">关于</a></li>
+          <li><a href="#categories">分类</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>欢迎来到我的博客</h1>
+      <p>分享技术心得、生活感悟和项目经验</p>
+    </div>
+  </section>
+
+  <main class="main">
+    <div class="container">
+      <div class="content-wrapper">
+        <section id="categories" class="categories">
+          <h2>文章分类</h2>
+          <div class="category-list">
+            <button class="category-btn active" data-category="all">全部</button>
+            <button class="category-btn" data-category="技术">技术</button>
+            <button class="category-btn" data-category="生活">生活</button>
+            <button class="category-btn" data-category="旅行">旅行</button>
+          </div>
+        </section>
+
+        <section class="articles">
+          <h2>最新文章</h2>
+          <div class="article-grid" id="articleGrid">
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 My Blog. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
