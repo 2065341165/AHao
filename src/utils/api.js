@@ -1,4 +1,4 @@
-const BASE_URL = './src/data';
+const BASE_URL = '/src/data';
 
 export async function fetchArticles() {
   try {
