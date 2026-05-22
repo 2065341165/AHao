@@ -173,6 +173,7 @@ let charIndex = 0;
 let isDeleting = false;
 let isGlitching = false;
 let glitchCount = 0;
+let isPaused = false;
 const typingEl = document.getElementById('typingText');
 
 function getRandomChar() {
@@ -192,23 +193,31 @@ function typeText() {
     glitchCount--;
     if (glitchCount <= 0) {
       isGlitching = false;
+      charIndex = 0;
     }
     setTimeout(typeText, 30);
     return;
   }
 
+  if (isPaused) {
+    setTimeout(typeText, 1500);
+    isPaused = false;
+    return;
+  }
+
   if (isDeleting) {
-    const displayText = currentText.substring(0, charIndex - 1);
+    const displayText = currentText.substring(0, charIndex);
     if (Math.random() > 0.7 && charIndex > 1) {
       typingEl.innerHTML = displayText.substring(0, displayText.length - 1) + '<span class="glitch-char">' + displayText[displayText.length - 1] + '</span><span class="typing-cursor"></span>';
     } else {
-      typingEl.innerHTML = displayText + '<span class="typing-cursor"></span>';
+      typingEl.innerHTML = displayText.substring(0, displayText.length - 1) + '<span class="typing-cursor"></span>';
     }
     charIndex--;
   } else {
-    const displayText = currentText.substring(0, charIndex);
+    const displayText = currentText.substring(0, charIndex + 1);
     if (Math.random() > 0.95 && charIndex > 0) {
-      typingEl.innerHTML = displayText.substring(0, charIndex - 1) + getRandomChar() + '<span class="typing-cursor"></span>';
+      const lastChar = displayText[displayText.length - 1];
+      typingEl.innerHTML = displayText.substring(0, displayText.length - 1) + getRandomChar() + '<span class="typing-cursor"></span>';
     } else {
       typingEl.innerHTML = displayText + '<span class="typing-cursor"></span>';
     }
@@ -218,8 +227,11 @@ function typeText() {
   let typeSpeed = isDeleting ? 30 : 80;
 
   if (!isDeleting && charIndex === currentText.length) {
-    typeSpeed = 1800;
+    isPaused = true;
+    typeSpeed = 0;
+  } else if (!isDeleting && charIndex > currentText.length) {
     isDeleting = true;
+    charIndex = currentText.length;
   } else if (isDeleting && charIndex === 0) {
     isDeleting = false;
     textIndex = (textIndex + 1) % texts.length;
