@@ -344,6 +344,41 @@ body {
   margin-left: 2px;
   vertical-align: text-bottom;
   animation: cursorBlink 0.8s infinite;
+  box-shadow: 0 0 10px var(--color-cyan), 0 0 20px var(--color-cyan);
+}
+
+.glitch-char {
+  color: var(--color-purple);
+  text-shadow:
+    0 0 5px var(--color-purple),
+    0 0 10px var(--color-purple),
+    2px 0 var(--color-cyan),
+    -2px 0 var(--color-pink);
+  animation: glitchChar 0.1s infinite;
+}
+
+@keyframes glitchChar {
+
+  0%,
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+
+  25% {
+    transform: translate(-1px, 1px);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: translate(1px, -1px);
+    opacity: 0.9;
+  }
+
+  75% {
+    transform: translate(-1px, -1px);
+    opacity: 0.85;
+  }
 }
 
 @keyframes cursorBlink {

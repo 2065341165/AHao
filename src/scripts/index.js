@@ -166,30 +166,68 @@ initParticles();
 animateParticles();
 
 // ===== TYPING EFFECT =====
-const texts = ['欢迎来到我的世界', '我是阿豪', '前端高级开发工程师', '创意工程师', 'UI/UX 爱好者', '终身学习者', '感谢停留'];
+const texts = ['欢迎来到我的世界', '我是阿豪', '一位前端开发工程师', '终身学习者，喜欢探索新的技术', '一直在路上~', '感谢停留❤'];
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
 let textIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
+let isGlitching = false;
+let glitchCount = 0;
 const typingEl = document.getElementById('typingText');
+
+function getRandomChar() {
+  return chars[Math.floor(Math.random() * chars.length)];
+}
 
 function typeText() {
   const currentText = texts[textIndex];
+
+  if (isGlitching) {
+    let displayText = currentText.substring(0, charIndex);
+    if (charIndex > 0) {
+      const glitchIndex = Math.floor(Math.random() * charIndex);
+      displayText = displayText.substring(0, glitchIndex) + getRandomChar() + displayText.substring(glitchIndex + 1);
+    }
+    typingEl.innerHTML = displayText + '<span class="typing-cursor"></span>';
+    glitchCount--;
+    if (glitchCount <= 0) {
+      isGlitching = false;
+    }
+    setTimeout(typeText, 30);
+    return;
+  }
+
   if (isDeleting) {
-    typingEl.innerHTML = currentText.substring(0, charIndex - 1) + '<span class="typing-cursor"></span>';
+    const displayText = currentText.substring(0, charIndex - 1);
+    if (Math.random() > 0.7 && charIndex > 1) {
+      typingEl.innerHTML = displayText.substring(0, displayText.length - 1) + '<span class="glitch-char">' + displayText[displayText.length - 1] + '</span><span class="typing-cursor"></span>';
+    } else {
+      typingEl.innerHTML = displayText + '<span class="typing-cursor"></span>';
+    }
     charIndex--;
   } else {
-    typingEl.innerHTML = currentText.substring(0, charIndex + 1) + '<span class="typing-cursor"></span>';
+    const displayText = currentText.substring(0, charIndex);
+    if (Math.random() > 0.95 && charIndex > 0) {
+      typingEl.innerHTML = displayText.substring(0, charIndex - 1) + getRandomChar() + '<span class="typing-cursor"></span>';
+    } else {
+      typingEl.innerHTML = displayText + '<span class="typing-cursor"></span>';
+    }
     charIndex++;
   }
-  let typeSpeed = isDeleting ? 50 : 100;
+
+  let typeSpeed = isDeleting ? 30 : 80;
+
   if (!isDeleting && charIndex === currentText.length) {
-    typeSpeed = 2000;
+    typeSpeed = 1800;
     isDeleting = true;
   } else if (isDeleting && charIndex === 0) {
     isDeleting = false;
     textIndex = (textIndex + 1) % texts.length;
-    typeSpeed = 500;
+    isGlitching = true;
+    glitchCount = 8;
+    typeSpeed = 0;
   }
+
   setTimeout(typeText, typeSpeed);
 }
 typeText();
