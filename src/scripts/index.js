@@ -166,7 +166,7 @@ initParticles();
 animateParticles();
 
 // ===== TYPING EFFECT =====
-const texts = ['全栈开发者', '创意工程师', 'UI/UX 爱好者', '终身学习者'];
+const texts = ['欢迎来到我的世界', '我是阿豪', '前端高级开发工程师', '创意工程师', 'UI/UX 爱好者', '终身学习者', '感谢停留'];
 let textIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
